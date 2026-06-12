@@ -29,28 +29,28 @@
   .board-holder{flex:none; height:100%; display:flex; align-items:center;}
   #board{position:relative; display:grid; aspect-ratio:1/1; height:min(100%, calc(100vw - 380px));
     grid-template-columns:repeat(6,.82fr) 1.12fr 1.12fr 1.12fr repeat(6,.82fr); grid-template-rows:repeat(6,.82fr) 1.12fr 1.12fr 1.12fr repeat(6,.82fr);
-    gap:3px; padding:9px; background:#f2dcc6; border:2px solid var(--gold); border-radius:22px;
+    gap:3px; padding:9px; background:#fffcf6; border:2px solid var(--gold); border-radius:22px;
     box-shadow:0 0 0 6px var(--card), 0 0 0 7px var(--accent), 0 22px 50px rgba(85,70,150,.14);}
-  .tcell{background:#fffdf9; border-radius:9px; border:1px solid rgba(160,110,70,.08); position:relative; display:flex; align-items:center; justify-content:center; font-size:clamp(10px,1.7vh,18px); box-shadow:0 1.5px 0 rgba(160,100,60,.1);}
-  .tcell.safe::after{content:"🌼"; opacity:.95; font-size:clamp(9px,1.5vh,15px);}
+  .tcell{background:#ffffff; border-radius:9px; border:1.5px solid #f1e3d3; position:relative; z-index:1; display:flex; align-items:center; justify-content:center; font-size:clamp(9px,1.35vh,14px); box-shadow:0 1.5px 0 rgba(160,100,60,.1);}
+  .tcell.safe::after{content:"🌼"; opacity:.8; font-size:clamp(9px,1.4vh,14px);}
   .tcell.entry{background:var(--pc); box-shadow:inset 0 -3px 0 rgba(0,0,0,.12);}
   .tcell.entry .earr{color:#fff; font-weight:900; font-size:clamp(11px,1.8vh,18px); text-shadow:0 1px 3px rgba(0,0,0,.35);}
   .tcell.branch{box-shadow:inset 0 0 0 3px var(--pc), inset 0 -2px 0 rgba(0,0,0,.05);}
   .tcell.branch .barr{color:var(--pc); font-weight:900; font-size:clamp(11px,1.7vh,17px);}
-  .tcell.good{background:#e7f6e6;}
-  .tcell.badc{background:#fde9e2;}
+  .tcell.good{background:#f1faf0;}
+  .tcell.badc{background:#fdf0ec;}
   body.dark .tcell.good{background:#2d4030;}
   body.dark .tcell.badc{background:#4d2e2e;}
   .tcell.homerun{color:#fff; font-weight:800; font-family:'Be Vietnam Pro',sans-serif; font-size:clamp(10px,1.6vh,16px); text-shadow:0 1px 3px rgba(0,0,0,.4);}
   .tcell.hmlast{box-shadow:inset 0 0 0 3px #fff, inset 0 0 0 5px var(--pc) !important;}
   .tcell.homerun{background:var(--pc); opacity:.92;}
-  .baseblock{border-radius:16px; position:relative; background:var(--pc); box-shadow:inset 0 -4px 0 rgba(0,0,0,.12), 0 3px 8px rgba(120,70,40,.18);}
+  .baseblock{border-radius:16px; position:relative; background:var(--pc); z-index:1; box-shadow:inset 0 0 0 3px rgba(255,255,255,.4), inset 0 -4px 0 rgba(0,0,0,.1), 0 3px 8px rgba(120,70,40,.16);}
   .baseblock .inner{display:none;}
   body.dark .baseblock .inner{background:rgba(10,16,24,.5);}
-  #centerz{display:flex; align-items:center; justify-content:center; background:#fffdf9; border:2px dashed var(--gold); border-radius:16px; position:relative; box-shadow:0 3px 10px rgba(120,70,40,.15); margin:13%;}
-  body.dark #centerz{background:#332636; border-color:var(--goldsoft);}
+  #centerz{display:flex; align-items:center; justify-content:center; border-radius:14px; position:relative; z-index:1; box-shadow:0 3px 10px rgba(120,70,40,.2), inset 0 0 0 3px rgba(255,255,255,.55); margin:9%; overflow:hidden;}
+  
   #centerz .dich{font-family:'Noto Serif',serif; font-weight:900; color:var(--accent); font-size:clamp(9px,1.5vh,15px); letter-spacing:2px;}
-  .nest{border-radius:50%; background:rgba(255,255,255,.55); border:2px dashed rgba(255,255,255,.95); z-index:2; margin:16%;}
+  .nest{border-radius:50%; background:rgba(255,255,255,.85); border:none; z-index:2; margin:18%; box-shadow:inset 0 1px 3px rgba(0,0,0,.12);}
   
   .anchorz{visibility:hidden;}
 
@@ -128,8 +128,8 @@
   }
   body.dark .btn-main{background:#e0a0c2; color:#33172a;}
   body.dark .btn-main:not(:disabled):hover{background:#eab5d2;}
-  body.dark .tcell{background:#43313f; border-color:rgba(255,255,255,.05);}
-  body.dark #board{background:#2a1b28;}
+  body.dark .tcell{background:#3d2d3b; border-color:rgba(255,255,255,.07);}
+  body.dark #board{background:#241a23;}
   body.dark .die{background:#f4e4ee;}
   body.dark #overlay{background:rgba(0,0,0,.6);}
 
@@ -273,6 +273,12 @@ function roomCode(){const cs="ABCDEFGHJKMNPQRSTUVWXYZ23456789";let s="";for(let 
 /* ============ BOARD ============ */
 function buildBoard(){
   const b=$("board");
+  // 4 vùng góc nhuộm màu người chơi cực nhạt — cấu trúc Ludo cổ điển
+  [[1,1],[1,10],[10,10],[10,1]].forEach(([r,c],i)=>{
+    const q=document.createElement("div");
+    q.style.cssText=`grid-row:${r} / span 6; grid-column:${c} / span 6; background:${COLORS[i]}; opacity:.13; border-radius:16px;`;
+    b.appendChild(q);
+  });
   // base blocks
   BASE_AREA.forEach(([r,c],i)=>{
     const d=document.createElement("div");
@@ -296,7 +302,8 @@ function buildBoard(){
   // center
   const cz=document.createElement("div");
   cz.id="centerz"; cz.style.gridRow="7 / span 3"; cz.style.gridColumn="7 / span 3";
-  cz.innerHTML='<div style="text-align:center"><div style="font-size:clamp(13px,2.6vh,26px); line-height:1.15">🏆</div><span class="dich">ĐÍCH</span></div>';
+  cz.style.background=`conic-gradient(from -45deg, ${COLORS[1]} 0 25%, ${COLORS[2]} 0 50%, ${COLORS[3]} 0 75%, ${COLORS[0]} 0 100%)`;
+  cz.innerHTML='<div style="background:#fff; border-radius:50%; width:54%; aspect-ratio:1; display:flex; align-items:center; justify-content:center; font-size:clamp(15px,3.2vh,32px); box-shadow:0 2px 8px rgba(0,0,0,.22)">🏆</div>';
   b.appendChild(cz);
   // track cells
   TRACK.forEach(([r,c],i)=>{
@@ -306,7 +313,7 @@ function buildBoard(){
     if(ep>-1){d.classList.add("entry"); d.style.setProperty("--pc",COLORS[ep]); d.innerHTML='<span class="earr">▶</span>'; d.title="Cửa xuất chuồng";}
     else if(bp>-1){d.classList.add("branch"); d.style.setProperty("--pc",COLORS[bp]); d.innerHTML='<span class="barr">↪</span>'; d.title="Chỗ rẽ vào bậc chiến thắng";}
     else if(TRAP[i]){
-      d.textContent=TRAP_ICO[TRAP[i]]; d.title=TRAP_TXT[TRAP[i]];
+      d.innerHTML=`<span style="opacity:.55">${TRAP_ICO[TRAP[i]]}</span>`; d.title=TRAP_TXT[TRAP[i]];
       d.classList.add(TRAP_GOOD.has(TRAP[i])?"good":"badc");
     }
     d.style.gridRow=r; d.style.gridColumn=c; d.id="tk"+i;
@@ -317,7 +324,7 @@ function buildBoard(){
     cells.forEach(([r,c],h)=>{
       const d=document.createElement("div");
       d.className="tcell homerun"+(h===4?" hmlast":""); d.style.setProperty("--pc",COLORS[p]);
-      d.style.background=COLORS[p]; d.style.opacity=(0.5+h*0.125).toFixed(3);
+      d.style.background=COLORS[p]; d.style.borderColor="rgba(255,255,255,.5)";
       d.textContent=h+1; d.title="Bậc chiến thắng "+(h+1)+"/5";
       d.style.gridRow=r; d.style.gridColumn=c; d.id="hm"+p+"_"+h;
       b.appendChild(d);
