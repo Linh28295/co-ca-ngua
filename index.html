@@ -28,28 +28,37 @@
 
   .board-holder{flex:none; height:100%; display:flex; align-items:center;}
   #board{position:relative; display:grid; aspect-ratio:1/1; height:min(100%, calc(100vw - 380px));
-    grid-template-columns:repeat(6,.86fr) 1.32fr 1.32fr 1.32fr repeat(6,.86fr); grid-template-rows:repeat(6,.86fr) 1.32fr 1.32fr 1.32fr repeat(6,.86fr);
-    gap:2.5px; padding:6px; background:var(--hair2); border:2px solid var(--gold); border-radius:22px;
+    grid-template-columns:repeat(6,.82fr) 1.12fr 1.12fr 1.12fr repeat(6,.82fr); grid-template-rows:repeat(6,.82fr) 1.12fr 1.12fr 1.12fr repeat(6,.82fr);
+    gap:3px; padding:9px; background:#f2dcc6; border:2px solid var(--gold); border-radius:22px;
     box-shadow:0 0 0 6px var(--card), 0 0 0 7px var(--accent), 0 22px 50px rgba(85,70,150,.14);}
-  .tcell{background:#fffdf9; border-radius:26%; position:relative; display:flex; align-items:center; justify-content:center; font-size:clamp(10px,1.7vh,18px); box-shadow:inset 0 -2px 0 rgba(0,0,0,.05);}
+  .tcell{background:#fffdf9; border-radius:9px; border:1px solid rgba(160,110,70,.08); position:relative; display:flex; align-items:center; justify-content:center; font-size:clamp(10px,1.7vh,18px); box-shadow:0 1.5px 0 rgba(160,100,60,.1);}
   .tcell.safe::after{content:"🌼"; opacity:.95; font-size:clamp(9px,1.5vh,15px);}
-  .tcell.entry{box-shadow:inset 0 0 0 3px var(--pc), inset 0 -2px 0 rgba(0,0,0,.05);}
+  .tcell.entry{background:var(--pc); box-shadow:inset 0 -3px 0 rgba(0,0,0,.12);}
+  .tcell.entry .earr{color:#fff; font-weight:900; font-size:clamp(11px,1.8vh,18px); text-shadow:0 1px 3px rgba(0,0,0,.35);}
+  .tcell.branch{box-shadow:inset 0 0 0 3px var(--pc), inset 0 -2px 0 rgba(0,0,0,.05);}
+  .tcell.branch .barr{color:var(--pc); font-weight:900; font-size:clamp(11px,1.7vh,17px);}
+  .tcell.good{background:#e7f6e6;}
+  .tcell.badc{background:#fde9e2;}
+  body.dark .tcell.good{background:#2d4030;}
+  body.dark .tcell.badc{background:#4d2e2e;}
+  .tcell.homerun{color:#fff; font-weight:800; font-family:'Be Vietnam Pro',sans-serif; font-size:clamp(10px,1.6vh,16px); text-shadow:0 1px 3px rgba(0,0,0,.4);}
+  .tcell.hmlast{box-shadow:inset 0 0 0 3px #fff, inset 0 0 0 5px var(--pc) !important;}
   .tcell.homerun{background:var(--pc); opacity:.92;}
-  .baseblock{border-radius:26px; position:relative; background:var(--pc); opacity:.95; box-shadow:inset 0 -5px 0 rgba(0,0,0,.08);}
-  .baseblock .inner{position:absolute; inset:16%; background:rgba(255,255,255,.85); border-radius:20px;}
+  .baseblock{border-radius:16px; position:relative; background:var(--pc); box-shadow:inset 0 -4px 0 rgba(0,0,0,.12), 0 3px 8px rgba(120,70,40,.18);}
+  .baseblock .inner{display:none;}
   body.dark .baseblock .inner{background:rgba(10,16,24,.5);}
-  #centerz{display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#fdf3ea,#f8e3d2); border-radius:24px; position:relative;}
-  body.dark #centerz{background:linear-gradient(135deg,#3a2638,#2b1c2c);}
+  #centerz{display:flex; align-items:center; justify-content:center; background:#fffdf9; border:2px dashed var(--gold); border-radius:16px; position:relative; box-shadow:0 3px 10px rgba(120,70,40,.15); margin:13%;}
+  body.dark #centerz{background:#332636; border-color:var(--goldsoft);}
   #centerz .dich{font-family:'Noto Serif',serif; font-weight:900; color:var(--accent); font-size:clamp(9px,1.5vh,15px); letter-spacing:2px;}
-  .nest{border-radius:50%; background:rgba(255,255,255,.92); border:2.5px dashed var(--pc); z-index:2; margin:14%;}
-  body.dark .nest{background:rgba(20,12,20,.4);}
+  .nest{border-radius:50%; background:rgba(255,255,255,.55); border:2px dashed rgba(255,255,255,.95); z-index:2; margin:16%;}
+  
   .anchorz{visibility:hidden;}
 
-  .token{position:absolute; z-index:10; width:min(4.6vh,42px); height:min(4.6vh,42px); border-radius:36%;
-    display:flex; align-items:center; justify-content:center; font-size:min(3vh,26px);
+  .token{position:absolute; z-index:10; width:min(3vh,28px); height:min(3vh,28px); border-radius:34%;
+    display:flex; align-items:center; justify-content:center; font-size:min(2.5vh,22px);
     border:3px solid #fff; box-shadow:0 4px 10px rgba(60,35,20,.35), inset 0 -3px 0 rgba(0,0,0,.12);
     transition:left .35s ease, top .35s ease; pointer-events:none;}
-  .token::after{content:attr(data-n); position:absolute; right:-4px; bottom:-4px; width:15px; height:15px; border-radius:50%;
+  .token::after{content:attr(data-n); position:absolute; right:-4px; bottom:-4px; width:13px; height:13px; border-radius:50%;
     background:#fff; color:var(--ink); font-size:9px; font-weight:800; display:flex; align-items:center; justify-content:center;
     box-shadow:0 1px 3px rgba(0,0,0,.25); font-family:'Be Vietnam Pro',sans-serif;}
   .token.mv{box-shadow:0 0 0 3px #fff, 0 0 0 6px var(--accent), 0 6px 14px rgba(0,0,0,.3); z-index:12; transform:scale(1.08);}
@@ -119,7 +128,8 @@
   }
   body.dark .btn-main{background:#e0a0c2; color:#33172a;}
   body.dark .btn-main:not(:disabled):hover{background:#eab5d2;}
-  body.dark .tcell{background:#3a2b3c;}
+  body.dark .tcell{background:#43313f; border-color:rgba(255,255,255,.05);}
+  body.dark #board{background:#2a1b28;}
   body.dark .die{background:#f4e4ee;}
   body.dark #overlay{background:rgba(0,0,0,.6);}
 
@@ -162,7 +172,8 @@
         <summary>📜 Cách chơi</summary>
         <p><b>🎯 Mục tiêu:</b> đưa cả <b>4 con ngựa</b> từ chuồng chạy đủ một vòng bàn cờ rồi leo vào <b>đích</b> trước mọi người.</p>
         <p><b>🎲 Lượt của bạn:</b> tung <b>2 xúc xắc</b>, ngựa đi theo <b>tổng điểm</b>. <b>Xuất chuồng</b> khi có ít nhất một con 6 <b>hoặc ra đôi</b> (đôi nào cũng được) — xuất chuồng sẽ thay cho nước đi. <b>Ra đôi được tung thêm</b> (3 đôi liên tiếp = mất lượt).</p>
-        <p><b>🕳️ Ô đặc biệt trên đường:</b> 🥕 cà rốt — tung thêm 1 lần · 🌪️ gió cuốn — bay thêm 4 ô · 🕳️ sụt hố — lùi 3 ô · 🐍 rắn cắn — về ô xuất phát · 🪤 dính lưới — mất lượt kế. Chỉ kích hoạt khi <b>đáp đúng ô</b>, và sau cú văng vẫn đá được ngựa đối thủ nếu trúng.</p>
+        <p><b>🎁 MỌI Ô đều có chuyện:</b> <span style="color:var(--good)">nền xanh = lộc</span>: 🦋 tiến 1 · 🍀 tiến 2 · 🌪️ bay 3 · 🥕 tung thêm · 🌈 bay tới ô an toàn kế tiếp. <span style="color:var(--bad)">Nền đỏ = bẫy</span>: 🌧️ lùi 1 · 🕳️ lùi 2–3 · 🐍 về ô xuất phát · 🪤 mất lượt kế. Pattern lặp giống hệt nhau trên cả 4 cung đường — không ai bị thiên vị. Chỉ kích hoạt khi <b>đáp đúng ô</b>; sau cú văng vẫn đá được ngựa đối thủ nếu trúng.</p>
+        <p><b>🗺️ Đọc bàn cờ:</b> ô màu có <b>▶</b> = cửa xuất chuồng · ô viền màu <b>↪</b> = chỗ rẽ vào bậc chiến thắng · bậc <b>1→5</b> đậm dần dẫn tới 🏆 ĐÍCH · 🌼 = ô an toàn (không bị đá, không có bẫy).</p>
         <p><b>⚔️ Đá ngựa:</b> đáp đúng ô có ngựa đối thủ → đá nó về chuồng và bạn <b>được tung thêm một lần</b>. Ô có dấu <b>✦</b> là ô an toàn — không bị đá. Ngựa về đích cũng được tung thêm.</p>
         <p><b>🏁 Về đích:</b> chạy hết vòng, ngựa rẽ vào dãy chuồng màu của mình; phải tung <b>đúng số bước</b> để leo từng bậc vào đích — thừa là đứng yên.</p>
         <p><b>🌐 Chơi online:</b> một người "Tạo phòng" lấy mã 5 ký tự, bạn bè mở link này chọn "Vào phòng". Rớt mạng AI tự đánh thay. Ván offline tự lưu.</p>
@@ -193,10 +204,15 @@ const NEST=[
   [[12,3],[12,4],[13,3],[13,4]],
 ];
 const DONE_SPOT=[[8,7],[7,8],[8,9],[9,8]];
-const TRAP={4:"pit",11:"carrot",17:"wind",23:"snake",30:"carrot",33:"net",43:"wind",46:"pit"};
-const TRAP_ICO={pit:"🕳️",carrot:"🥕",wind:"🌪️",snake:"🐍",net:"🪤"};
-const TRAP_TXT={pit:"sụt hố — lùi 3 ô",carrot:"cà rốt — được tung thêm",wind:"gió cuốn — bay thêm 4 ô",snake:"rắn cắn — về ô xuất phát",net:"dính lưới — mất lượt kế tiếp"};
-const BASE_AREA=[[1,1],[1,10],[10,10],[10,1]]; // top-left corner of each 6x6 base
+/* mỗi ô trên đường đều có thử thách/lợi ích — pattern lặp đối xứng theo 4 cung để công bằng */
+const ARC_PAT={1:"fwd1",2:"pit2",3:"carrot",4:"rain",5:"wind3",6:"snake",7:"luck2",9:"net",10:"rainbow",12:"pit3"};
+const TRAP={};
+ENTRY.forEach(e=>{for(const off in ARC_PAT){TRAP[(e+Number(off))%52]=ARC_PAT[off];}});
+const TRAP_ICO={fwd1:"🦋",luck2:"🍀",wind3:"🌪️",pit2:"🕳️",pit3:"🕳️",rain:"🌧️",carrot:"🥕",snake:"🐍",net:"🪤",rainbow:"🌈"};
+const TRAP_TXT={fwd1:"bướm dẫn đường — tiến 1 ô",luck2:"cỏ may mắn — tiến 2 ô",wind3:"gió cuốn — bay thêm 3 ô",pit2:"sụt hố — lùi 2 ô",pit3:"hố sâu — lùi 3 ô",rain:"mưa trơn — lùi 1 ô",carrot:"cà rốt — được tung thêm",snake:"rắn cắn — về ô xuất phát",net:"dính lưới — mất lượt kế tiếp",rainbow:"cầu vồng — bay tới ô an toàn kế tiếp"};
+const TRAP_GOOD=new Set(["fwd1","luck2","wind3","carrot","rainbow"]);
+const TRAP_DELTA={fwd1:1,luck2:2,wind3:3,pit2:-2,pit3:-3,rain:-1};
+const BASE_AREA=[[2,2],[2,12],[12,12],[12,2]]; // mini 3x3 stable cards in corners
 
 /* ============ STATE ============ */
 const AVAS=["🐎","🦄","♞","🏇","👑","🐯","🌸","🦅","🐼","🦊","🐉","🦁"];
@@ -261,7 +277,7 @@ function buildBoard(){
   BASE_AREA.forEach(([r,c],i)=>{
     const d=document.createElement("div");
     d.className="baseblock"; d.style.setProperty("--pc",COLORS[i]);
-    d.style.gridRow=r+" / span 6"; d.style.gridColumn=c+" / span 6";
+    d.style.gridRow=r+" / span 3"; d.style.gridColumn=c+" / span 3";
     d.innerHTML='<div class="inner"></div>';
     b.appendChild(d);
   });
@@ -280,15 +296,19 @@ function buildBoard(){
   // center
   const cz=document.createElement("div");
   cz.id="centerz"; cz.style.gridRow="7 / span 3"; cz.style.gridColumn="7 / span 3";
-  cz.innerHTML='<span class="dich">ĐÍCH</span>';
+  cz.innerHTML='<div style="text-align:center"><div style="font-size:clamp(13px,2.6vh,26px); line-height:1.15">🏆</div><span class="dich">ĐÍCH</span></div>';
   b.appendChild(cz);
   // track cells
   TRACK.forEach(([r,c],i)=>{
     const d=document.createElement("div");
-    d.className="tcell"+(SAFE.has(i)?" safe":"");
-    const ep=ENTRY.indexOf(i);
-    if(ep>-1){d.classList.add("entry"); d.style.setProperty("--pc",COLORS[ep]);}
-    if(TRAP[i]){d.textContent=TRAP_ICO[TRAP[i]]; d.title=TRAP_TXT[TRAP[i]];}
+    const ep=ENTRY.indexOf(i), bp=BRANCH.indexOf(i);
+    d.className="tcell"+(SAFE.has(i)&&ep<0?" safe":"");
+    if(ep>-1){d.classList.add("entry"); d.style.setProperty("--pc",COLORS[ep]); d.innerHTML='<span class="earr">▶</span>'; d.title="Cửa xuất chuồng";}
+    else if(bp>-1){d.classList.add("branch"); d.style.setProperty("--pc",COLORS[bp]); d.innerHTML='<span class="barr">↪</span>'; d.title="Chỗ rẽ vào bậc chiến thắng";}
+    else if(TRAP[i]){
+      d.textContent=TRAP_ICO[TRAP[i]]; d.title=TRAP_TXT[TRAP[i]];
+      d.classList.add(TRAP_GOOD.has(TRAP[i])?"good":"badc");
+    }
     d.style.gridRow=r; d.style.gridColumn=c; d.id="tk"+i;
     b.appendChild(d);
   });
@@ -296,7 +316,9 @@ function buildBoard(){
   HOME.forEach((cells,p)=>{
     cells.forEach(([r,c],h)=>{
       const d=document.createElement("div");
-      d.className="tcell homerun"; d.style.setProperty("--pc",COLORS[p]);
+      d.className="tcell homerun"+(h===4?" hmlast":""); d.style.setProperty("--pc",COLORS[p]);
+      d.style.background=COLORS[p]; d.style.opacity=(0.5+h*0.125).toFixed(3);
+      d.textContent=h+1; d.title="Bậc chiến thắng "+(h+1)+"/5";
       d.style.gridRow=r; d.style.gridColumn=c; d.id="hm"+p+"_"+h;
       b.appendChild(d);
     });
@@ -338,12 +360,18 @@ function placeTokens(){
     const el=$(k); if(!el)return;
     const r=el.getBoundingClientRect();
     const cx=r.left-br.left+r.width/2, cy=r.top-br.top+r.height/2;
+    const n=list.length;
+    const full=Math.min(innerHeight*0.03,28);
+    const size=n===1?full:(n===2?full*0.78:full*0.62);
+    const sp=size*0.56;
+    const OFF={1:[[0,0]],2:[[-1,0],[1,0]],3:[[-1,-0.85],[1,-0.85],[0,0.85]],4:[[-1,-1],[1,-1],[-1,1],[1,1]]};
     list.forEach((e,idx)=>{
       const t=$("tk"+e.p.id+"_"+e.i); if(!t)return;
-      let dx=0,dy=0;
-      if(list.length>1){dx=(idx%2)*14-7; dy=Math.floor(idx/2)*14-(list.length>2?7:0);}
-      t.style.left=(cx-t.offsetWidth/2+dx)+"px";
-      t.style.top=(cy-t.offsetHeight/2+dy)+"px";
+      t.style.width=t.style.height=size+"px";
+      t.style.fontSize=(size*0.62)+"px";
+      const o=(OFF[Math.min(n,4)]||OFF[4])[Math.min(idx,3)];
+      t.style.left=(cx-size/2+o[0]*sp)+"px";
+      t.style.top=(cy-size/2+o[1]*sp)+"px";
       t.classList.toggle("dn", e.pc.s==="done");
     });
   });
@@ -494,11 +522,18 @@ async function applyMove(p,m){
     log(`${TRAP_ICO[tp]} ${p.name} đáp vào ô ${TRAP_TXT[tp]}!`, "imp");
     bcast({t:"notice",title:TRAP_ICO[tp]+" Ô đặc biệt",body:`${p.name}: ${TRAP_TXT[tp]}.`});
     updateUI(); await sleep(400);
-    if(tp==="pit"){pc.pos=(pc.pos-3+52)%52; if(kickAt(pc.pos))bonus=true; sfx.kick();}
-    else if(tp==="wind"){pc.pos=(pc.pos+4)%52; if(kickAt(pc.pos))bonus=true; sfx.move();}
+    if(TRAP_DELTA[tp]!==undefined){
+      pc.pos=(pc.pos+TRAP_DELTA[tp]+52)%52;
+      if(kickAt(pc.pos))bonus=true;
+      TRAP_DELTA[tp]>0?sfx.move():sfx.kick();
+    }
     else if(tp==="snake"){pc.pos=ENTRY[p.slot]; sfx.kick();}
     else if(tp==="carrot"){bonus=true; sfx.exit();}
     else if(tp==="net"){p.skipNext=true;}
+    else if(tp==="rainbow"){
+      let k=1; while(k<52&&!SAFE.has((pc.pos+k)%52))k++;
+      pc.pos=(pc.pos+k)%52; sfx.exit();
+    }
   }
   updateUI();
   await sleep(450);
